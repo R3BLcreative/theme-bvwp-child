@@ -1,0 +1,78 @@
+{
+	"version": "100",
+	"menu": {
+		"page_title": "Dashboard",
+		"menu_title": "Infinite Admin",
+		"caps": "manage_infinite",
+		"slug": "infinite-dashboard",
+		"order": 3,
+		"description": "A high level overview of what's been happening. Customize your dashboard to suite your specific use cases and tasks."
+	},
+	"screens": [
+		{
+			"page_title": "Students",
+			"menu_title": "Students",
+			"caps": "manage_infinite",
+			"slug": "infinite-students",
+			"order": 2,
+			"description": "Get detailed insights, tracking data, and enable third-party integrations to create an all-in-one single location for your admins to manage student data and student related flows.",
+			"views": [
+				{
+					"slug": "student-list",
+					"menu_title": "List",
+					"view_title": "Student List",
+					"main_view": true,
+					"visible": true,
+					"class": "Infinite_Students",
+					"method": "get_table"
+				},
+				{
+					"slug": "student-add",
+					"menu_title": "Add",
+					"view_title": "Create a Student",
+					"main_view": false,
+					"visible": true,
+					"class": "Infinite_Students",
+					"method": ""
+				},
+				{
+					"slug": "student-details",
+					"menu_title": "Details",
+					"view_title": "Student Details",
+					"main_view": false,
+					"visible": false,
+					"class": "Infinite_Students",
+					"method": "get_details"
+				}
+			]
+		},
+		{
+			"page_title": "Rosters",
+			"menu_title": "Rosters",
+			"caps": "manage_infinite",
+			"slug": "infinite-rosters",
+			"order": 3,
+			"description": "Vivamus sagittis lacus vel augue laoreet rutrum faucibus. Phasellus laoreet lorem vel dolor tempus vehicula.",
+			"views": [
+				{
+					"slug": "roster-list",
+					"menu_title": "List",
+					"view_title": "Roster List",
+					"main_view": true,
+					"visible": true,
+					"class": "Infinite_Rosters",
+					"method": "get_table"
+				},
+				{
+					"slug": "roster-details",
+					"menu_title": "Details",
+					"view_title": "Roster Details",
+					"main_view": false,
+					"visible": false,
+					"class": "Infinite_Rosters",
+					"method": "get_details"
+				}
+			]
+		}
+	]
+}

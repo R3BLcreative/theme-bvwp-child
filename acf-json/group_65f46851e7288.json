@@ -1,0 +1,122 @@
+{
+    "key": "group_65f46851e7288",
+    "title": "Settings Page",
+    "fields": [
+        {
+            "key": "field_65f46884705ad",
+            "label": "Stripe Settings",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "left",
+            "endpoint": 0
+        },
+        {
+            "key": "field_65f46854705ac",
+            "label": "Stripe Mode",
+            "name": "stripe_mode",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui_on_text": "Live",
+            "ui_off_text": "Test",
+            "ui": 1
+        },
+        {
+            "key": "field_65f46897705ae",
+            "label": "Secret Key (Test)",
+            "name": "sk_test",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "sk_test_**************",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_65f468f3705af",
+            "label": "Secret Key (Live)",
+            "name": "sk_live",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "sk_live_**************",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_65f9bb4b83c0c",
+            "label": "Webhook Secret",
+            "name": "wh_secret",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "whsec_**************",
+            "prepend": "",
+            "append": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "bvwp-settings"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "acf_after_title",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "field",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1710865326
+}

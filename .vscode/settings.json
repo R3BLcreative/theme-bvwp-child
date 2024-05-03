@@ -1,0 +1,7 @@
+{
+	"tailwindCSS.experimental.configFile": {
+		"infinite/tw-admin.config.js": "infinite/admin/**",
+		"infinite/tw-public.config.js": "infinite/public/**"
+	},
+	"intelephense.environment.includePaths": ["../../../"]
+}

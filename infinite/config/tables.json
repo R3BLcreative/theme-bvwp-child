@@ -1,0 +1,122 @@
+{
+	"version": "103",
+	"tables": [
+		{
+			"table_name": "infinite_students",
+			"table_sql": "students.sql",
+			"actions": [
+				{
+					"slug": "view",
+					"icon": "view",
+					"label": "View",
+					"view": "student-details",
+					"primary": true
+				}
+			],
+			"view_cols": [
+				{
+					"slug": "ID",
+					"label": "ID",
+					"colCss": "text-center w-[5%]",
+					"cellCss": "",
+					"sortable": true,
+					"initSort": false,
+					"search": true
+				},
+				{
+					"slug": "first_name",
+					"label": "First Name",
+					"colCss": "text-left w-[15%]",
+					"cellCss": "",
+					"sortable": true,
+					"initSort": true,
+					"search": true
+				},
+				{
+					"slug": "last_name",
+					"label": "Last Name",
+					"colCss": "text-left w-[15%]",
+					"cellCss": "",
+					"sortable": true,
+					"initSort": false,
+					"search": true
+				},
+				{
+					"slug": "primary_phone",
+					"label": "Phone",
+					"colCss": "text-left w-[15%]",
+					"cellCss": "",
+					"sortable": false,
+					"initSort": false,
+					"search": false
+				},
+				{
+					"slug": "primary_email",
+					"label": "Email",
+					"colCss": "text-left w-[20%]",
+					"cellCss": "",
+					"sortable": true,
+					"initSort": false,
+					"search": true
+				}
+			]
+		},
+		{
+			"table_name": "infinite_rosters",
+			"table_sql": "rosters.sql",
+			"actions": [
+				{
+					"slug": "view",
+					"icon": "view",
+					"label": "View",
+					"view": "roster-details",
+					"primary": true
+				}
+			],
+			"view_cols": [
+				{
+					"slug": "course_id",
+					"label": "CID",
+					"colCss": "text-center w-[5%]",
+					"cellCss": "",
+					"sortable": true,
+					"initSort": true,
+					"search": true
+				},
+				{
+					"slug": "course_title",
+					"label": "Course",
+					"colCss": "text-left w-[20%]",
+					"cellCss": "",
+					"sortable": false,
+					"initSort": false,
+					"search": false
+				},
+				{
+					"slug": "schedule",
+					"label": "Schedule",
+					"colCss": "text-left w-[15%]",
+					"cellCss": "",
+					"sortable": false,
+					"initSort": false,
+					"search": false
+				},
+				{
+					"slug": "registered_count",
+					"label": "Students",
+					"colCss": "text-center w-[10%]",
+					"cellCss": "",
+					"sortable": false,
+					"initSort": false,
+					"search": false
+				}
+			]
+		},
+		{
+			"table_name": "infinite_orders",
+			"table_sql": "orders.sql",
+			"actions": [],
+			"view_cols": []
+		}
+	]
+}

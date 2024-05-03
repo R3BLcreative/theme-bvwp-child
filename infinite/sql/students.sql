@@ -1,0 +1,21 @@
+CREATE TABLE $TABLE_NAME (
+ID bigint (20) unsigned NOT NULL AUTO_INCREMENT,
+user_id bigint (20) unsigned UNIQUE,
+first_name varchar(255) NOT NULL,
+middle_name varchar(255),
+last_name varchar(255) NOT NULL,
+suffix varchar(255),
+primary_email varchar(255) NOT NULL,
+primary_phone varchar(20) NOT NULL,
+street1 varchar(255) NOT NULL,
+street2 varchar(255),
+city varchar(255) NOT NULL,
+state varchar(255) NOT NULL,
+postal_code varchar(20) NOT NULL,
+license1 varchar(255),
+license2 varchar(255),
+tc_agreement tinyint(1) NOT NULL DEFAULT 1,
+updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY  (ID)
+) $COLLATE;
