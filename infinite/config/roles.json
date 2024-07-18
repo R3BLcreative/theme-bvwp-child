@@ -1,0 +1,18 @@
+{
+	"version": "101",
+	"roles": [
+		{
+			"slug": "infinite-admin",
+			"label": "Infinite - Admin",
+			"caps": [{ "read": true }, { "manage_infinite": true }],
+			"isAdmin": true,
+			"admin_caps": ["manage_infinite"]
+		},
+		{
+			"slug": "infinite-student",
+			"label": "Infinite - Student",
+			"caps": [{ "read": false }],
+			"isAdmin": false
+		}
+	]
+}

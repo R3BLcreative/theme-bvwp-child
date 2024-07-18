@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+@config './../../tw-admin.config.js';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#wpwrap {
+	@apply bg-surface-700;
+
+	& #wpfooter {
+		@apply hidden;
+	}
+
+	& #infinite-wrap {
+		@apply pr-5;
+	}
+
+	& #infinite-content {
+		@apply text-body !font-body text-base py-5 px-3;
+	}
+
+	& .h2 {
+		@apply text-primary text-2xl font-black tracking-wider;
+	}
+
+	& .infinite-card {
+		@apply flex flex-col gap-6 rounded-md overflow-hidden border border-secondary p-6;
+	}
+
+	& .infinite-button {
+		@apply py-3 px-4 flex flex-row items-center justify-center gap-2 w-fit rounded-md transition-all ease-in-out;
+
+		&.btn-icon {
+			@apply py-2 px-2;
+		}
+
+		&.btn-sm {
+			@apply py-1 px-2;
+		}
+
+		&.btn-md {
+			@apply py-2 px-3;
+		}
+
+		&.btn-primary {
+			@apply bg-primary text-primary-50 fill-primary-50 shadow-sm border border-primary-400 hover:bg-secondary hover:text-secondary-50 hover:fill-secondary-50 hover:border-secondary-400 hover:shadow-lg active:bg-surface active:text-body-50 active:fill-body-50 active:border-surface-400 active:shadow-none;
+		}
+
+		&.btn-secondary {
+			@apply bg-secondary text-secondary-50 fill-secondary-50 shadow-sm border border-secondary-400 hover:bg-primary hover:text-primary-50 hover:fill-primary-50 hover:border-primary-400 hover:shadow-lg active:bg-surface active:text-body-50 active:fill-body-50 active:border-surface-400 active:shadow-none;
+		}
+
+		&.btn-alt {
+			@apply border bg-surface-600 text-body-50 fill-body-50 border-surface-500 shadow-sm hover:bg-primary hover:text-primary-50 hover:fill-primary-50 hover:border-primary-400 hover:shadow-lg active:bg-surface-400 active:text-body-100 active:fill-body-100 active:border-surface-200 active:shadow-none;
+		}
+
+		& i {
+			@apply fill-inherit block w-4;
+		}
+	}
+
+	& select,
+	& input[type='text'] {
+		@apply py-3 px-4 min-w-[135px] rounded-md border border-surface-500 bg-surface-800 text-body-50 font-body font-normal shadow-lg hover:text-body-50 focus:text-body-50 placeholder:italic;
+	}
+
+	& input[type='number'] {
+		@apply py-3 px-4 text-center rounded-md border border-surface-500 bg-surface-800 text-body-50 font-body font-normal shadow-lg hover:text-body-50 focus:text-body-50 placeholder:italic;
+		appearance: textfield;
+	}
+
+	& input[type='number']::-webkit-inner-spin-button,
+	& input[type='number']::-webkit-outer-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+}

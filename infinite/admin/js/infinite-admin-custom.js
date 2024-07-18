@@ -1,0 +1,1 @@
+const editBtns=document.querySelectorAll(".edit-modal-btn");editBtns.length>0&&editBtns.forEach((t=>{const n=t.dataset.modal,e=document.getElementById(n),o=n+"-close",l=document.getElementById(o);t.onclick=function(){e.style.display="block"},l.onclick=function(){e.style.display="none"},window.onclick=function(t){t.target==e&&(e.style.display="none")}}));
