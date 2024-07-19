@@ -24,3 +24,20 @@ if (editBtns.length > 0) {
 		};
 	});
 }
+
+const passFailStudent = (el) => {
+	const parent = el.parentNode.parentNode;
+	const psCol = parent.querySelector('#pass-fail');
+	const action = el.dataset.action;
+	const SID = el.dataset.student;
+	const RID = el.dataset.roster;
+	const url = infinite_ajax_obj.ajaxurl + '&action=' + action + '&SID=' + SID + '&RID=' + RID;
+
+	fetch(url)
+		.then((response) => response.json())
+		.then((data) => {
+			if (data.success == true) {
+				psCol.innerHTML = data.result;
+			}
+		});
+};

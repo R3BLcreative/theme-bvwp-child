@@ -188,40 +188,52 @@ class Infinite_Students {
 		// Get course info
 		$CID = $_REQUEST['CID'];
 		$title = get_the_title($CID);
+		$code = get_field('course_code', $CID);
+		$instructor = get_field('instructor', $CID);
 
 		// Get date
 		$date = $_REQUEST['date'];
 
 		require_once get_stylesheet_directory() . '/infinite/vendor/autoload.php';
 
-		$tpl_path = get_stylesheet_directory() . '/infinite/pdf-templates/test-certificate.pdf';
+		$tpl_path = get_stylesheet_directory() . '/infinite/pdf-templates/bvwp-certificate.pdf';
 
 		$pdf = new setasign\Fpdi\Fpdi('l');
 		$page_count = $pdf->setSourceFile($tpl_path);
 		$tpl = $pdf->importPage(1);
 		$pdf->AddPage();
-		$pdf->useTemplate($tpl);
+		$pdf->useTemplate($tpl, ['adjustPageSize' => true]);
 		$pdf->SetFont('Helvetica');
 
 		// Student Name
-		$pdf->SetFontSize('30');
-		$pdf->SetXY(0, 100);
-		$pdf->Cell(0, 10, $name, 0, 0, 'C');
+		$pdf->SetFontSize('34');
+		$pdf->SetXY(10, 85);
+		$pdf->Cell(0, 20, $name, 0, 0, 'C');
 
 		// Course Title
-		$pdf->SetFontSize('20');
-		$pdf->SetXY(0, 135);
-		$pdf->Cell(0, 10, $title, 0, 0, 'C');
+		$pdf->SetFontSize('30');
+		$pdf->SetXY(10, 125);
+		$pdf->Cell(0, 20, $title, 0, 0, 'C');
+
+		// TCEQ Course Number
+		$pdf->SetFontSize('14');
+		$pdf->SetXY(35, 167);
+		$pdf->Cell(35, 8, $code, 0, 0, 'C');
 
 		// Completion Date
 		$pdf->SetFontSize('14');
-		$pdf->SetXY(54, 159);
+		$pdf->SetXY(35, 185);
 		$pdf->Cell(35, 8, date('m/d/Y', $date), 0, 0, 'C');
 
 		// Instructor
 		$pdf->SetFontSize('14');
-		$pdf->SetXY(176, 159);
-		$pdf->Cell(60, 8, 'Instructor', 0, 0, 'C');
+		$pdf->SetXY(186, 167);
+		$pdf->Cell(60, 8, $instructor, 0, 0, 'C');
+
+		// Training Provider
+		$pdf->SetFontSize('14');
+		$pdf->SetXY(186, 185);
+		$pdf->Cell(60, 8, 'Brazos Valley Water Protection', 0, 0, 'C');
 
 		$pdf->Output();
 	}
@@ -276,6 +288,7 @@ class Infinite_Students {
 
 		foreach ($courses as $course) {
 			$rows[] = [
+				'ID' => $course['ID'],
 				'title' => get_the_title($course['course_id']),
 				'sched' => $course['schedule'],
 				'order' => $course['order_id'],
@@ -297,9 +310,12 @@ class Infinite_Students {
 		foreach ($courses as $course) {
 			if (!$course['passed']) continue;
 
+			$dates = explode('-', $course['schedule']);
+			$completion_date = (count($dates) > 1) ? $dates[1] : $dates[0];
+
 			$rows[] = [
 				'course' => get_the_title($course['course_id']),
-				'passed_at' => date('m/d/Y', strtotime($course['passed_at'])),
+				'completion_date' => date('m/d/Y', strtotime($completion_date)),
 				'SID' => $course['student_id'],
 				'CID' => $course['course_id'],
 			];
@@ -321,7 +337,7 @@ class Infinite_Students {
 
 		global $wpdb;
 
-		$SID = intval($_REQUEST['SID']);
+		$SID = intval($_REQUEST['ID']);
 		$data = $_REQUEST['updates'];
 		$format = [];
 		foreach ($data as $item) {

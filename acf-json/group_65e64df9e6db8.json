@@ -17,7 +17,8 @@
                 "id": ""
             },
             "placement": "left",
-            "endpoint": 0
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_65e64dfa78516",
@@ -79,7 +80,8 @@
                 "id": ""
             },
             "placement": "left",
-            "endpoint": 0
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_65e6521aa5cb0",
@@ -186,7 +188,8 @@
                 "id": ""
             },
             "placement": "left",
-            "endpoint": 0
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_65e652f7ee373",
@@ -293,7 +296,8 @@
                 "id": ""
             },
             "placement": "left",
-            "endpoint": 1
+            "endpoint": 1,
+            "selected": 0
         },
         {
             "key": "field_65e64d49e5482",
@@ -360,6 +364,26 @@
             "append": ""
         },
         {
+            "key": "field_66997bf7b2e19",
+            "label": "Instructor",
+            "name": "instructor",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Vincent Bonura",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
             "key": "field_65e64c0dcd24b",
             "label": "License Type",
             "name": "license_type",
@@ -369,7 +393,7 @@
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "50",
+                "width": "34",
                 "class": "",
                 "id": ""
             },
@@ -397,7 +421,7 @@
             "required": 1,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "50",
+                "width": "33",
                 "class": "",
                 "id": ""
             },
@@ -428,7 +452,8 @@
                 "id": ""
             },
             "placement": "left",
-            "endpoint": 0
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_65e6576fde71f",
@@ -491,63 +516,6 @@
                     "parent_repeater": "field_65e6576fde71f"
                 }
             ]
-        },
-        {
-            "key": "field_65f32a1b293d1",
-            "label": "Stripe",
-            "name": "",
-            "aria-label": "",
-            "type": "tab",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "placement": "left",
-            "endpoint": 0
-        },
-        {
-            "key": "field_65f3289edec2f",
-            "label": "Product ID",
-            "name": "product_id",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "Enter the Product ID for this course's corresponding product in the Stripe admin.",
-            "required": 1,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "50",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_65f328e5dec30",
-            "label": "Price ID",
-            "name": "price_id",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "Enter the Price ID for this course's corresponding product in the Stripe admin.",
-            "required": 1,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "50",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
         }
     ],
     "location": [
@@ -568,5 +536,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1712758218
+    "modified": 1721404558
 }

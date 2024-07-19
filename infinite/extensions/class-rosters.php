@@ -14,6 +14,8 @@
  * @subpackage Infinite/extensions
  */
 
+use setasign\Fpdi\Fpdi;
+
 class Infinite_Rosters {
 	/**
 	 * The table name for the customers table.
@@ -46,16 +48,6 @@ class Infinite_Rosters {
 
 		// Ajax hooks
 		add_action('admin_init', [$this, 'ajax_hooks']);
-	}
-
-	/**
-	 * Undocumented function
-	 *
-	 * @return void
-	 */
-	public function ajax_hooks() {
-		// add_action('wp_ajax_nopriv_update_student', [$this, 'ajax_update_student']);
-		// add_action('wp_ajax_update_student', [$this, 'ajax_update_student']);
 	}
 
 	/**
@@ -157,23 +149,202 @@ class Infinite_Rosters {
 		global $wpdb;
 
 		// Rosters do not have ID's so initial ID is from a single roster record use that to get data
-		$ID = $_REQUEST['ID'];
-		$rtable = $wpdb->prefix . $this->table_name;
-		$ref = $wpdb->get_row("SELECT * FROM $rtable WHERE ID = $ID LIMIT 1", ARRAY_A);
+		$RID = $_REQUEST['ID'];
+		$roster = $this->get_roster($RID);
 
-		// Get full roster
-		$schedule = $ref['schedule'];
-		$course_id = $ref['course_id'];
-		$stable = $wpdb->prefix . 'infinite_students';
-		$roster = $wpdb->get_results("SELECT Roster.ID, Roster.course_id, Roster.student_id, Roster.schedule, Students.ID, Students.first_name, Students.last_name, Students.license1, Students.license2 FROM $rtable as Roster LEFT JOIN $stable as Students ON Roster.student_id = Students.ID WHERE Roster.schedule = '$schedule' AND Roster.course_id = $course_id ORDER BY Students.first_name ASC", ARRAY_A);
+		$data = $roster[0];
 
 		$args = [
-			'title' => get_the_title($course_id),
-			'schedule' => $schedule,
+			'RID' => $RID,
+			'title' => get_the_title($data['course_id']),
+			'schedule' => $data['schedule'],
 			'roster' => $roster,
 		];
 
 		get_template_part('infinite/admin/partials/view', 'roster', $args);
+	}
+
+	private function get_roster($RID) {
+		global $wpdb;
+
+		$table = $wpdb->prefix . $this->table_name;
+		$ref = $wpdb->get_row("SELECT * FROM $table WHERE ID = $RID LIMIT 1", ARRAY_A);
+		$schedule = $ref['schedule'];
+		$CID = $ref['course_id'];
+
+		$stable = $wpdb->prefix . 'infinite_students';
+		$roster = $wpdb->get_results("SELECT Roster.ID as RID, Roster.course_id, Roster.student_id, Roster.schedule, Roster.passed, Students.ID, Students.first_name, Students.last_name, Students.license1, Students.license2 FROM $table as Roster LEFT JOIN $stable as Students ON Roster.student_id = Students.ID WHERE Roster.schedule = '$schedule' AND Roster.course_id = $CID ORDER BY Students.first_name ASC", ARRAY_A);
+
+		return $roster;
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @return void
+	 */
+	public function ajax_hooks() {
+		add_action('wp_ajax_nopriv_update_passed', [$this, 'ajax_update_passed']);
+		add_action('wp_ajax_update_passed', [$this, 'ajax_update_passed']);
+		//
+		add_action('wp_ajax_nopriv_update_failed', [$this, 'ajax_update_failed']);
+		add_action('wp_ajax_update_failed', [$this, 'ajax_update_failed']);
+		//
+		add_action('wp_ajax_nopriv_generate_signin', [$this, 'ajax_generate_signin']);
+		add_action('wp_ajax_generate_signin', [$this, 'ajax_generate_signin']);
+		//
+		add_action('wp_ajax_nopriv_move_roster', [$this, 'ajax_move_roster']);
+		add_action('wp_ajax_move_roster', [$this, 'ajax_move_roster']);
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @return void
+	 */
+	public function ajax_update_passed() {
+		global $wpdb;
+
+		// Verify Nonce
+		if (!wp_verify_nonce($_REQUEST['nonce'], 'ajax_infinite_nonce')) {
+			exit('No naughty business please');
+		}
+
+		$table = $wpdb->prefix . $this->table_name;
+		$wpdb->update($table, ['passed' => true], ['ID' => $_REQUEST['RID'], 'student_id' => $_REQUEST['SID']]);
+
+		// Return a JSON response
+		echo json_encode(['success' => true, 'result' => 'PASS']);
+
+		die();
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @return void
+	 */
+	public function ajax_update_failed() {
+		global $wpdb;
+
+		// Verify Nonce
+		if (!wp_verify_nonce($_REQUEST['nonce'], 'ajax_infinite_nonce')) {
+			exit('No naughty business please');
+		}
+
+		$table = $wpdb->prefix . $this->table_name;
+		$wpdb->update($table, ['passed' => false], ['ID' => $_REQUEST['RID'], 'student_id' => $_REQUEST['SID']]);
+
+		// Return a JSON response
+		echo json_encode(['success' => true, 'result' => 'FAIL']);
+
+		die();
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @return void
+	 */
+	public function ajax_move_roster() {
+		global $wpdb;
+
+		// Verify Nonce
+		if (!wp_verify_nonce($_REQUEST['nonce'], 'ajax_move_roster')) {
+			exit('No naughty business please');
+		}
+
+		global $wpdb;
+
+		$RID = intval($_REQUEST['RID']);
+		$data = $_REQUEST['updates'];
+		$table = $wpdb->prefix . $this->table_name;
+		$customer = $wpdb->update($table, $data, ['ID' => $RID], ['%s'], ['%d']);
+
+		// Return to sender
+		header('Location: ' . admin_url('admin.php?page=infinite-rosters'));
+
+		// Just in case...
+		die();
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @return void
+	 */
+	public function ajax_generate_signin() {
+		global $wpdb;
+
+		// Verify Nonce
+		if (!wp_verify_nonce($_REQUEST['nonce'], 'roster_nonce')) {
+			exit('No naughty business please');
+		}
+
+		// Set headers
+		//header("Content-Type: application/pdf");
+
+		// Get student info
+		$RID = $_REQUEST['RID'];
+		$students = $this->get_roster($RID);
+		//
+		$data = $students[0];
+		$CID = $data['course_id'];
+		//
+		$title = get_the_title($CID);
+		$code = get_field('course_code', $CID);
+		$instructor = get_field('instructor', $CID);
+
+		require_once get_stylesheet_directory() . '/infinite/vendor/autoload.php';
+
+		$tpl_path = get_stylesheet_directory() . '/infinite/pdf-templates/SigninTemplate.pdf';
+
+		$pdf = new Fpdi('L', 'in', [8.5, 11]);
+		$pdf->setSourceFile($tpl_path);
+		$tpl = $pdf->importPage(1);
+		$pdf->AddPage();
+		$pdf->useTemplate($tpl, ['adjustPageSize' => true]);
+		$pdf->SetFont('Helvetica');
+
+		// Instructor
+		$pdf->SetFontSize(10);
+		$pdf->SetTextColor(0, 0, 0);
+		$pdf->SetXY(4.25, 0.6);
+		$pdf->Write(0, $instructor);
+
+		// Course Title
+		$pdf->SetFontSize(18);
+		$pdf->SetTextColor(0, 0, 255);
+		$pdf->SetXY(2.95, 1.01);
+		$pdf->Write(0, $title . ' (' . $code . ')');
+
+		// Students
+		$x = .95;
+		$y = 1.28;
+		$inc = 0.35;
+		foreach ($students as $i => $student) {
+			$i++; // Multiplier
+			$adjust = $inc * $i;
+			//
+			$pdf->SetFontSize(12);
+			$pdf->SetTextColor(0, 0, 0);
+			$pdf->SetXY($x, $y + $adjust);
+			$pdf->Write(0, $student['first_name'] . ' ' . $student['last_name']);
+			//
+			$pdf->SetFontSize(12);
+			$pdf->SetTextColor(0, 0, 0);
+			$pdf->SetXY($x + 5, $y + $adjust);
+			if (isset($student['license2']) && !empty($student['license2'])) {
+				$lic = 'XXX-XX-' . substr($student['license2'], 7, 4);
+				$pdf->Write(0, $lic);
+			} else {
+				$pdf->Write(0, $student['license1']);
+			}
+		}
+
+		$pdf->Output();
+
+		die();
 	}
 }
 

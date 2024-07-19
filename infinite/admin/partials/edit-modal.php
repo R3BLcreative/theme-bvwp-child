@@ -13,7 +13,7 @@ extract($args);
 			<form action="<?php echo admin_url('admin-ajax.php'); ?>" class="flex flex-col gap-4">
 				<input type="hidden" name="action" value="<?php echo $options['action']; ?>">
 				<input type="hidden" name="nonce" value="<?php echo wp_create_nonce('ajax_' . $options['action']); ?>">
-				<input type="hidden" name="SID" value="<?php echo $data['ID']; ?>">
+				<input type="hidden" name="ID" value="<?php echo $data['ID']; ?>">
 
 				<?php
 				get_template_part(

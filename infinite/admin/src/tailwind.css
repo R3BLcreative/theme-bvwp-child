@@ -56,6 +56,14 @@
 			@apply border bg-surface-600 text-body-50 fill-body-50 border-surface-500 shadow-sm hover:bg-primary hover:text-primary-50 hover:fill-primary-50 hover:border-primary-400 hover:shadow-lg active:bg-surface-400 active:text-body-100 active:fill-body-100 active:border-surface-200 active:shadow-none;
 		}
 
+		&.btn-success {
+			@apply border bg-success-600 text-body-50 fill-body-50 border-success-500 shadow-sm hover:bg-success-500/50 hover:text-body-50 hover:fill-body-50 hover:border-success-400 hover:shadow-lg active:bg-success-400 active:text-body-100 active:fill-body-100 active:border-success-200 active:shadow-none;
+		}
+
+		&.btn-error {
+			@apply border bg-error-600 text-body-50 fill-body-50 border-error-500 shadow-sm hover:bg-error/50 hover:text-body-50 hover:fill-body-50 hover:border-error-400 hover:shadow-lg active:bg-error-400 active:text-body-100 active:fill-body-100 active:border-error-200 active:shadow-none;
+		}
+
 		& i {
 			@apply fill-inherit block w-4;
 		}

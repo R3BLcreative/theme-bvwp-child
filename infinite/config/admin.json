@@ -27,15 +27,6 @@
 					"method": "get_table"
 				},
 				{
-					"slug": "student-add",
-					"menu_title": "Add",
-					"view_title": "Create a Student",
-					"main_view": false,
-					"visible": true,
-					"class": "Infinite_Students",
-					"method": ""
-				},
-				{
 					"slug": "student-details",
 					"menu_title": "Details",
 					"view_title": "Student Details",

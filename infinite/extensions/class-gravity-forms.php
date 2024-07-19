@@ -206,8 +206,24 @@ class Infinite_Gravity_Forms {
 		foreach ($_SESSION['cart']['items'] as $item) {
 			if ($item['isRegistered']) continue;
 
+			// Get image
+			$image = get_field('featured_image', $item['id']);
+			$price = get_field('course_price', $item['id']) * 100;
+			$name = get_the_title($item['id']) . ' (' . get_field('course_code', $item['id']) . ')';
+
+			//
 			$line_items[] = [
-				'price' => get_field('price_id', $item['id']),
+				// 'price' => get_field('price_id', $item['id']),
+				'price_data' => [
+					'currency' => 'USD',
+					'tax_behavior' => 'inclusive',
+					'unit_amount' => $price,
+					'product_data' => [
+						'name' => $name,
+						'description' => $item['sched'],
+						'images' => [$image['url']],
+					],
+				],
 				'quantity' => 1,
 			];
 		}
