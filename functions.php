@@ -11,4 +11,12 @@ $myUpdateChecker = PucFactory::buildUpdateChecker(
 );
 $myUpdateChecker->getVcsApi()->enableReleaseAssets();
 // $myUpdateChecker->setBranch('production');
-$myUpdateChecker->setAuthentication('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');
+// Configure this in wp-config.php or the server environment when authentication is needed.
+// Never commit the token to this repository.
+$githubUpdaterToken = defined('R3BL_GITHUB_UPDATER_TOKEN')
+	? R3BL_GITHUB_UPDATER_TOKEN
+	: getenv('R3BL_GITHUB_UPDATER_TOKEN');
+if (is_string($githubUpdaterToken) && $githubUpdaterToken !== '') {
+	$myUpdateChecker->setAuthentication($githubUpdaterToken);
+}
+unset($githubUpdaterToken);
