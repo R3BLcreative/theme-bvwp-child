@@ -5,7 +5,7 @@ require 'plugin-update-checker/plugin-update-checker.php';
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
 $myUpdateChecker = PucFactory::buildUpdateChecker(
-	'https://github.com/R3BLcreative/theme-bvwp-child/',
+	'https://github.com/james-cook-tech/theme-bvwp-child/',
 	__FILE__,
 	'theme-bvwp-child'
 );
